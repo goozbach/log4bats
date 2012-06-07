@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source lib/log4bats.sh
+source lib/log4bats
 
 mylog(){
         log_fatal "$@"
@@ -12,7 +12,7 @@ log_error "this is an error message on line eleven"
 
 log_warn "this is a warning message"
 
-sleep 7
+sleep 1
 
 log_info "this is an info message"
 
