@@ -2,11 +2,17 @@
 
 source lib/log4bats.sh
 
-log_fatal "this is a fatal message"
+mylog(){
+        log_fatal "$@"
+}
 
-log_error "this is an error message"
+mylog "this is a fatal message on line nine"
+
+log_error "this is an error message on line eleven"
 
 log_warn "this is a warning message"
+
+sleep 7
 
 log_info "this is an info message"
 
