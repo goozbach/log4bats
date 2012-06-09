@@ -11,34 +11,34 @@ _log_dispatch(){
     _log_do_dispatch ${_LOG_MESSAGE}
   elif [[ ${LOG4BATS_LEVEL:-'TRACE'} == 'DEBUG' ]]
   then
-    case ${_LOG_LVL} in
-      'DEBUG'|'INFO'|'WARN'|'ERROR'|'FATAL')
+    if [[ ${_LOG_LVL} =~ '(DEBUG|INFO|WARN|ERROR|FATAL)' ]]
+    then
         _log_do_dispatch ${_LOG_MESSAGE}
-    esac 
+    fi 
   elif [[ ${LOG4BATS_LEVEL:-'TRACE'} == 'INFO' ]]
   then
-    case ${_LOG_LVL} in
-      'INFO'|'WARN'|'ERROR'|'FATAL')
+    if [[ ${_LOG_LVL} =~  '(INFO|WARN|ERROR|FATAL)' ]]
+    then
         _log_do_dispatch ${_LOG_MESSAGE}
-    esac 
+    fi 
   elif [[ ${LOG4BATS_LEVEL:-'TRACE'} == 'WARN' ]]
   then
-    case ${_LOG_LVL} in
-      'WARN'|'ERROR'|'FATAL')
+    if [[ ${_LOG_LVL} =~ '(WARN|ERROR|FATAL)' ]]
+    then
         _log_do_dispatch ${_LOG_MESSAGE}
-    esac 
+    fi 
   elif [[ ${LOG4BATS_LEVEL:-'TRACE'} == 'ERROR' ]]
   then
-    case ${_LOG_LVL} in
-      'ERROR'|'FATAL')
+    if [[ ${_LOG_LVL} =~ '(ERROR|FATAL)' ]]
+    then
         _log_do_dispatch ${_LOG_MESSAGE}
-    esac 
+    fi 
   elif [[ ${LOG4BATS_LEVEL:-'TRACE'} == 'FATAL' ]]
   then
-    case ${_LOG_LVL} in
-      'FATAL')
+    if [[ ${_LOG_LVL} =~ 'FATAL' ]]
+    then
         _log_do_dispatch ${_LOG_MESSAGE}
-    esac 
+    fi 
   elif [[ ${LOG4BATS_LEVEL:-'TRACE'} == 'DEBUG' ]]
   then
     return
