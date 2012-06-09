@@ -1,1 +1,6 @@
-test dispatcher override
+test dispatcher override *DONE*
+Add tests
+ * 03-logformat
+ * 04-formatvars
+   * date and format
+ * 05-log_die
