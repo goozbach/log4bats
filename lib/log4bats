@@ -1,45 +1,48 @@
 #!/bin/bash
 _log_do_dispatch(){
-  #TODO make dispatcher
+  #TODO make dispatcher docs
   echo -e ${@}
 }
 _log_dispatch(){
   _LOG_DATE=$(date -u ${LOG4BATS_DATE_FORMAT:-"+%F-%T.%N"} -d @${_LOG_STAMP})
   _LOG_MESSAGE=$(printf ${LOG4BATS_FORMAT:-"${_LOG_DATE} ${_LOG_LVL} %b\n"} "$@")
-  if [[ ${LOG4BATS_LEVEL:-'TRACE'} == 'TRACE' || ${LOG4BATS_LEVEL:-'TRACE'} == 'ALL' ]]
+
+  LOG4BATS_LEVEL=${LOG4BATS_LEVEL:-'TRACE'}
+
+  if [[ ${LOG4BATS_LEVEL} == 'TRACE' || ${LOG4BATS_LEVEL} == 'ALL' ]]
   then
     _log_do_dispatch ${_LOG_MESSAGE}
-  elif [[ ${LOG4BATS_LEVEL:-'TRACE'} == 'DEBUG' ]]
+  elif [[ ${LOG4BATS_LEVEL} == 'DEBUG' ]]
   then
-    if [[ ${_LOG_LVL} =~ '(DEBUG|INFO|WARN|ERROR|FATAL)' ]]
+    if [[ ${_LOG_LVL} =~ (DEBUG|INFO|WARN|ERROR|FATAL) ]]
     then
         _log_do_dispatch ${_LOG_MESSAGE}
     fi 
-  elif [[ ${LOG4BATS_LEVEL:-'TRACE'} == 'INFO' ]]
+  elif [[ ${LOG4BATS_LEVEL} == 'INFO' ]]
   then
-    if [[ ${_LOG_LVL} =~  '(INFO|WARN|ERROR|FATAL)' ]]
+    if [[ ${_LOG_LVL} =~  (INFO|WARN|ERROR|FATAL) ]]
     then
         _log_do_dispatch ${_LOG_MESSAGE}
     fi 
-  elif [[ ${LOG4BATS_LEVEL:-'TRACE'} == 'WARN' ]]
+  elif [[ ${LOG4BATS_LEVEL} == 'WARN' ]]
   then
-    if [[ ${_LOG_LVL} =~ '(WARN|ERROR|FATAL)' ]]
+    if [[ ${_LOG_LVL} =~ (WARN|ERROR|FATAL) ]]
     then
         _log_do_dispatch ${_LOG_MESSAGE}
     fi 
-  elif [[ ${LOG4BATS_LEVEL:-'TRACE'} == 'ERROR' ]]
+  elif [[ ${LOG4BATS_LEVEL} == 'ERROR' ]]
   then
-    if [[ ${_LOG_LVL} =~ '(ERROR|FATAL)' ]]
+    if [[ ${_LOG_LVL} =~ (ERROR|FATAL) ]]
     then
         _log_do_dispatch ${_LOG_MESSAGE}
     fi 
-  elif [[ ${LOG4BATS_LEVEL:-'TRACE'} == 'FATAL' ]]
+  elif [[ ${LOG4BATS_LEVEL} == 'FATAL' ]]
   then
     if [[ ${_LOG_LVL} =~ 'FATAL' ]]
     then
         _log_do_dispatch ${_LOG_MESSAGE}
     fi 
-  elif [[ ${LOG4BATS_LEVEL:-'TRACE'} == 'DEBUG' ]]
+  elif [[ ${LOG4BATS_LEVEL} == 'DEBUG' ]]
   then
     return
   fi

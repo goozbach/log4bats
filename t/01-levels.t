@@ -19,7 +19,9 @@ DIR=${0%%/*}
 # TAP producer
 source ${DIR}/lib/tap-functions
 
-plan_tests 6
+plan_tests 12
+
+unset LOG4BATS_LEVEL
 
 source ${DIR}/../lib/log4bats
 
@@ -46,4 +48,31 @@ like "${DEBUG_OUTPUT}" "${TIMESTAMP} DEBUG this is a debug message" "Debug Defau
 TRACE_OUTPUT=$(log_trace "this is a trace message")
 TIMESTAMP=${TRACE_OUTPUT%% *}
 like "${TRACE_OUTPUT}" "${TIMESTAMP} TRACE this is a trace message" "Trace Default Output"
+
+diag "setting LOG4BATS_LEVEL='WARN'"
+export LOG4BATS_LEVEL=WARN
+
+FATAL_OUTPUT=$(log_fatal "this is a fatal message")
+TIMESTAMP=${FATAL_OUTPUT%% *}
+like "${FATAL_OUTPUT}" "${TIMESTAMP} FATAL this is a fatal message" "Fatal Non Squelch Output"
+
+ERROR_OUTPUT=$(log_error "this is an error message")
+TIMESTAMP=${ERROR_OUTPUT%% *}
+like "${ERROR_OUTPUT}" "${TIMESTAMP} ERROR this is an error message" "Error Non Squelch Output"
+
+WARN_OUTPUT=$(log_warn "this is a warning message")
+TIMESTAMP=${WARN_OUTPUT%% *}
+like "${WARN_OUTPUT}" "${TIMESTAMP} WARN this is a warning message" "Warning Non Squelch Output"
+
+INFO_OUTPUT=$(log_info "this is an info message")
+[[ -z ${INFO_OUTPUT} ]]
+ok $? "Information Squelch Output"
+
+DEBUG_OUTPUT=$(log_debug "this is a debug message")
+[[ -z ${DEBUG_OUTPUT} ]]
+ok $? "Debug Squelch Output"
+
+TRACE_OUTPUT=$(log_trace "this is a trace message")
+[[ -z  ${TRACE_OUTPUT} ]]
+ok $? "Trace Squelch Output"
 
