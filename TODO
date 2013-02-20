@@ -4,4 +4,4 @@ Add tests
  * 04-formatvars
    * date and format
  * 05-log_die
- * remove dependancy on date command
+ * remove dependancy on date command (possible?) -- if not work on cross-platform date support
