@@ -4,4 +4,5 @@ Add tests
  * 04-formatvars
    * date and format
  * 05-log_die
-make everything warn or higher log to stderr
+ * make everything warn or higher log to stderr
+ * remove dependancy on date command (possible?) -- if not work on cross-platform date support
